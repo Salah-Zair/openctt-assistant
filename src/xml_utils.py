@@ -5,8 +5,8 @@ import xml.etree.ElementTree as ET
 from src.settings import (TeacherKey, ClassRoomKey,
                           CoursesKey, LessonTtKey,
                           DaysKey, TermsKey,
-                          EduProgramGroupsKey,
-                          EduProgramsKey)
+                          YearKey,
+                          GroupKEY)
 
 
 def get_root_element_file(file_path: str) -> ET:
@@ -124,37 +124,37 @@ def get_courses(element: ET) -> List[dict]:
     return courses
 
 
-def get_edu_programs(element: ET) -> List[dict]:
-    edu_programs = []
+def get_groups(element: ET) -> List[dict]:
+    groups = []
 
     for node in element.findall("edu_programs/edu_program"):
-        edu_program = {
-            EduProgramsKey.ID: int(node.get('id')),
-            EduProgramsKey.NAME: node.find('name').text.lstrip(),
-            EduProgramsKey.CODE: node.find('code').text.lstrip(),
-            EduProgramsKey.SEMESTER: node.find('semester').text.lstrip(),
-            EduProgramsKey.EXT_id: node.find('extid').text.lstrip(),
-            EduProgramsKey.COURSES: get_courses(node)
+        group = {
+            GroupKEY.ID: int(node.get('id')),
+            GroupKEY.NAME: node.find('name').text.lstrip(),
+            GroupKEY.CODE: node.find('code').text.lstrip(),
+            GroupKEY.SEMESTER: node.find('semester').text.lstrip(),
+            GroupKEY.EXT_id: node.find('extid').text.lstrip(),
+            GroupKEY.COURSES: get_courses(node)
         }
-        edu_programs.append(edu_program)
+        groups.append(group)
 
-    return edu_programs
+    return groups
 
 
-def get_edu_program_groups(root_element: ET) -> List[dict]:
-    edu_program_groups = []
+def get_years_program(root_element: ET) -> List[dict]:
+    years_program = []
 
     counter_id = 1
 
     for node in root_element.findall("edu_program_groups/edu_program_group"):
         ext_id = get_node_if_exist(node, 'extid')
-        edu_program_group = {
-            EduProgramGroupsKey.NAME: node.find('name').text.lstrip(),
-            EduProgramGroupsKey.EXT_ID: ext_id if ext_id else str(uuid.uuid1()),
-            EduProgramGroupsKey.EDU_PROGRAMS: get_edu_programs(node),
+        year_program = {
+            YearKey.NAME: node.find('name').text.lstrip(),
+            YearKey.EXT_ID: ext_id if ext_id else str(uuid.uuid1()),
+            YearKey.GROUPS: get_groups(node),
         }
-        edu_program_groups.append(edu_program_group)
-    return edu_program_groups
+        years_program.append(year_program)
+    return years_program
 
 
 def get_lessons_in_tt(root_element: ET) -> List[dict]:
@@ -185,7 +185,7 @@ def xml_file_to_json_data(file_path: str):
         LessonTtKey.LESSON_IN_TT: get_lessons_in_tt(root),
         DaysKey.DAYS: get_days(root),
         TermsKey.TERMS: get_terms(root),
-        EduProgramGroupsKey.EDU_PROGRAM_GROUPS: get_edu_program_groups(root)
+        YearKey.GROUPS: get_years_program(root)
     }
 
     return data
@@ -204,7 +204,7 @@ def xml_str_to_json_data(str_data: str):
         LessonTtKey.LESSON_IN_TT: get_lessons_in_tt(root),
         DaysKey.DAYS: get_days(root),
         TermsKey.TERMS: get_terms(root),
-        EduProgramGroupsKey.EDU_PROGRAM_GROUPS: get_edu_program_groups(root)
+        YearKey.YEAR_KEY: get_years_program(root)
     }
 
     return data
