@@ -4,6 +4,8 @@ MAX_NESTED_NODE = 10
 
 # KEYS
 
+DOCUMENT_KEY = "document_key"
+
 
 class TeacherKey:
     TEACHERS = 'teachers'
@@ -73,6 +75,7 @@ class TermsKey:
 class EduProgramsKey:
     EDU_PROGRAM = 'edu_programs'
     #
+    ID = 'id'
     NAME = 'name'
     CODE = 'code'
     SEMESTER = 'semester'
