@@ -27,6 +27,10 @@
         width: 140px;
     }
 
+    th{
+        font-weight: 500;
+    }
+
     table,
     th,
     td {
@@ -34,21 +38,57 @@
         text-align: center;
     }
 
+    
+    #schedule-year{
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+
+    #schedule-group{
+        margin: 5px 0;
+    }
+
+
+
+    .box-color {
+        font-size: 14px;
+    }
+
+    .box-color .box {
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        border: 0.4px solid rgb(196, 196, 196);
+    }
+
+    .box-color .box.cours {
+        background-color: rgb(150, 253, 159);
+    }
+
+    .box-color .box.td {
+        background-color: rgb(255, 255, 207);
+    }
+
+    .box-color .box.tp {
+        background-color: rgb(210, 243, 255);
+    }
+
     .course-item-data {
         border-radius: 3px;
         margin: 3px;
+        border: 0.4px solid rgb(191, 191, 191);
     }
 
     .course-item-data.cours {
-        background-color: rgb(243, 243, 243);
+        background-color: rgb(195, 253, 200);
     }
 
     .course-item-data.td {
-        background-color: rgb(248, 248, 205);
+        background-color: rgb(255, 255, 207);
     }
 
     .course-item-data.tp {
-        background-color: rgb(217, 243, 252);
+        background-color: rgb(210, 243, 255);
     }
 
     .course-item-data a {
@@ -57,8 +97,9 @@
     }
 
     .course-item-data a:hover {
-        color: skyblue;
+        color: rgb(66, 150, 253);
         text-decoration: none;
+        font-weight: bold;
     }
 
     .course-item-data .course-data {
@@ -75,9 +116,26 @@
 </style>
 
 <body>
-    <div class="container d-flex justify-content-center align-items-center test" style="height: 100vh;">
+    <div class="container d-flex flex-column justify-content-center align-items-center test" style="height: 100vh;">
+        <div id="schedule-year" class="mb-3"></div>
+
+        <div id="schedule-group"></div>
         <table border="1" id="schedule">
         </table>
+        <div class="d-flex justify-content-end meta-data-table" style="width: 70%;">
+            <div class="course-type-color-data">
+                <div class="box-color ">
+                    <span class="box cours"></span> Course
+                </div>
+                <div class="box-color ">
+                    <span class="box td"></span> TD
+
+                </div>
+                <div class="box-color ">
+                    <span class="box tp"></span> TP
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- BOOTSTRAP JS -->

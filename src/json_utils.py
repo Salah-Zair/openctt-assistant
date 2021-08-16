@@ -240,6 +240,10 @@ def get_class_room_data(data: dict, class_room_id: id):
 
     require_dict_key = ["id", "name", "code", "semester"]
 
+    years = []
+    years_id = []
+    require_year_key = ["name", "extid"]
+
     for year in data[YearKey.YEAR_KEY]:
         for group_item in year[YearKey.GROUPS]:
             for course_item in group_item[GroupKEY.COURSES]:
@@ -254,6 +258,12 @@ def get_class_room_data(data: dict, class_room_id: id):
                             group_item, require_dict_key)
                         groups.append(course_group)
 
+                    if year[YearKey.EXT_ID] not in years_id:
+                        years_id.append(year[YearKey.EXT_ID])
+
+                        course_year = get_sup_dict(
+                            year, require_year_key)
+                        years.append(course_year)
     # get teachers using teachers_id
     teachers = []
     for teacher in data[TeacherKey.TEACHERS]:
@@ -261,6 +271,7 @@ def get_class_room_data(data: dict, class_room_id: id):
             teachers.append(teacher)
 
     return {
+        'years': years,
         "class_room": class_room,
         "courses": courses,
         "teachers": teachers,
@@ -284,10 +295,14 @@ def get_teacher_data(data: dict, teacher_id: int):
 
     courses = []
     teachers_id = []
+
     groups = []
     groups_id = []
-
     require_dict_key = ["id", "name", "code", "semester"]
+
+    years = []
+    years_id = []
+    require_year_key = ["name", "extid"]
 
     for year in data[YearKey.YEAR_KEY]:
         for group_item in year[YearKey.GROUPS]:
@@ -301,6 +316,13 @@ def get_teacher_data(data: dict, teacher_id: int):
                         course_group = get_sup_dict(
                             group_item, require_dict_key)
                         groups.append(course_group)
+
+                    if year[YearKey.EXT_ID] not in years_id:
+                        years_id.append(year[YearKey.EXT_ID])
+
+                        course_year = get_sup_dict(
+                            year, require_year_key)
+                        years.append(course_year)
 
     courses_id = [course_item[CoursesKey.ID] for course_item in courses]
 
@@ -317,6 +339,7 @@ def get_teacher_data(data: dict, teacher_id: int):
             class_rooms.append(class_room_item)
 
     return {
+        "years": year,
         "class_rooms": class_rooms,
         "courses": courses,
         "teacher": teacher,
@@ -329,13 +352,16 @@ def get_teacher_data(data: dict, teacher_id: int):
 
 def get_group_data(data: dict, group_id: int) -> dict:
     group: dict = None
+    year: dict = None
 
     courses = []
     teachers_id = []
-    for year in data[YearKey.YEAR_KEY]:
-        for group_item in year[YearKey.GROUPS]:
+    for year_item in data[YearKey.YEAR_KEY]:
+        
+        for group_item in year_item[YearKey.GROUPS]:
             if group_item[GroupKEY.ID] == group_id:
                 group = group_item
+                year = year_item
                 for course_item in group[GroupKEY.COURSES]:
                     course_item["related_group"] = group_item[GroupKEY.ID]
                     courses.append(course_item)
@@ -368,7 +394,11 @@ def get_group_data(data: dict, group_id: int) -> dict:
     require_dict_key = ["id", "name", "code", "semester"]
     group = get_sup_dict(group, require_dict_key)
 
+    require_dict_key = ["name", "extid"]
+    year = get_sup_dict(year, require_dict_key)
+
     return {
+        "year": year,
         "class_rooms": class_rooms,
         "courses": courses,
         "teachers": teachers,
