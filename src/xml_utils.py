@@ -38,7 +38,7 @@ def get_teachers(root_element: ET) -> List[dict]:
             TeacherKey.EXT_ID: get_node_if_exist(node, 'extid'),
         }
 
-        if n := node.find('spec_slots'):
+        if node.find('spec_slots'):
             teacher[TeacherKey.SPEC_SLOTS] = {
                 TeacherKey.TYPE: node.find('spec_slots').get('type').lstrip(),
                 TeacherKey.SPEC_SLOTS: [
@@ -153,6 +153,19 @@ def get_years_program(root_element: ET) -> List[dict]:
             YearKey.EXT_ID: ext_id if ext_id else str(uuid.uuid1()),
             YearKey.GROUPS: get_groups(node),
         }
+
+        if node.find('spec_slots'):
+            year_program["spec_slots"] = {
+                "type": node.find('spec_slots').get('type').lstrip(),
+                "spec_slot": [
+                    {
+                        "day_index": int(item.find("day_index").text.strip()),
+                        "term_index": int(item.find("term_index").text.strip())
+                    }
+                    for item in node.findall("spec_slots/spec_slot")
+                ]
+            }
+
         years_program.append(year_program)
     return years_program
 
