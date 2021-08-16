@@ -6,6 +6,9 @@ from fastapi import FastAPI, File, UploadFile
 from tinydb.database import TinyDB
 from tinydb import Query
 
+from fastapi.middleware.cors import CORSMiddleware
+
+
 from src.settings import DOCUMENT_KEY, TeacherKey, GroupKEY, YearKey
 from src.xml_utils import xml_str_to_json_data
 from src.json_utils import get_group_data, get_course_data, get_class_room_data, get_teacher_data
@@ -16,6 +19,20 @@ table = db.table('documents')
 
 app = FastAPI()
 
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1:5500",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
@@ -109,14 +126,14 @@ async def get_group(key: str, year_id: int, group_id: int):
     return {'message': 'not found'}
 
 
-@app.get("/group/{document_key}/{year_extid}/{group_id}/")
-async def get_group_table(document_key: str, year_extid: str, group_id: int):
+@app.get("/group/{document_key}/{group_id}/")
+async def get_group_table(document_key: str, group_id: int):
     document = Query()
     result = table.search(document.document_key == document_key)
 
     if result:
         data = result[0]
-        schedule = get_group_data(data, year_extid, group_id)
+        schedule = get_group_data(data, group_id)
         if schedule:
             return schedule
 
@@ -160,3 +177,9 @@ async def get_class_room(document_key: str, teacher_id: int):
         return teacher_data
 
     return {'message': 'not found'}
+
+
+
+@app.get("/")
+async def main():
+    return {"message": "Hello World"}

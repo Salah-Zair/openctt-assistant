@@ -92,26 +92,26 @@ def get_year_spec_slot(year: dict):
     return {}
 
 
-def get_group_data(data: dict, year_program_extid: str, group_id: int):
-    year_program = get_year_program_by_extid(data, year_program_extid)
-    groups = get_groups(year_program, group_id)
+# def get_group_data(data: dict, year_program_extid: str, group_id: int):
+#     year_program = get_year_program_by_extid(data, year_program_extid)
+#     groups = get_groups(year_program, group_id)
 
-    list_courses_id = get_courses_id_from_group(groups)
-    lessons_in_tt = get_lessons_in_tt_by_course_id(data, list_courses_id)
+#     list_courses_id = get_courses_id_from_group(groups)
+#     lessons_in_tt = get_lessons_in_tt_by_course_id(data, list_courses_id)
 
-    teachers_id = get_teachers_id_from_courses(groups[GroupKEY.COURSES])
-    teachers = get_teachers_by_id(data, teachers_id)
+#     teachers_id = get_teachers_id_from_courses(groups[GroupKEY.COURSES])
+#     teachers = get_teachers_by_id(data, teachers_id)
 
-    class_rooms_ids = get_class_rooms_id_from_lessons(lessons_in_tt)
-    class_rooms = get_class_room_by_id(data, class_rooms_ids)
+#     class_rooms_ids = get_class_rooms_id_from_lessons(lessons_in_tt)
+#     class_rooms = get_class_room_by_id(data, class_rooms_ids)
 
-    return {
-        **groups,
-        'teachers': teachers,
-        'lessons': lessons_in_tt,
-        'class_rooms': class_rooms,
-        'spec_slot': get_year_spec_slot(year_program)
-    }
+#     return {
+#         **groups,
+#         'teachers': teachers,
+#         'lessons': lessons_in_tt,
+#         'class_rooms': class_rooms,
+#         'spec_slot': get_year_spec_slot(year_program)
+#     }
 
 
 def get_course_data(data: dict, course_id: int):
@@ -175,7 +175,8 @@ def get_course_data(data: dict, course_id: int):
             teachers.append(teacher)
 
     # GET Lessons
-    related_courses_id = [course_item[CoursesKey.ID] for course_item in related_courses]
+    related_courses_id = [course_item[CoursesKey.ID]
+                          for course_item in related_courses]
     lessons = []
 
     for lesson in data[LessonTtKey.LESSON_IN_TT]:
@@ -229,7 +230,8 @@ def get_class_room_data(data: dict, class_room_id: id):
         if lesson_item[LessonTtKey.CLASS_ROOM_ID] == class_room[ClassRoomKey.ID]:
             lessons.append(lesson_item)
 
-    lessons_id = [lesson_item[LessonTtKey.COURSE_ID] for lesson_item in lessons]
+    lessons_id = [lesson_item[LessonTtKey.COURSE_ID]
+                  for lesson_item in lessons]
 
     courses = []
     teachers_id = []
@@ -248,7 +250,8 @@ def get_class_room_data(data: dict, class_room_id: id):
                     if group_item[GroupKEY.ID] not in groups_id:
                         groups_id.append(group_item[GroupKEY.ID])
 
-                        course_group = get_sup_dict(group_item, require_dict_key)
+                        course_group = get_sup_dict(
+                            group_item, require_dict_key)
                         groups.append(course_group)
 
     # get teachers using teachers_id
@@ -295,7 +298,8 @@ def get_teacher_data(data: dict, teacher_id: int):
                     if group_item[GroupKEY.ID] not in groups_id:
                         groups_id.append(group_item[GroupKEY.ID])
 
-                        course_group = get_sup_dict(group_item, require_dict_key)
+                        course_group = get_sup_dict(
+                            group_item, require_dict_key)
                         groups.append(course_group)
 
     courses_id = [course_item[CoursesKey.ID] for course_item in courses]
@@ -317,6 +321,58 @@ def get_teacher_data(data: dict, teacher_id: int):
         "courses": courses,
         "teacher": teacher,
         "groups": groups,
+        "lessons": lessons,
+        "days": data[DaysKey.DAYS],
+        "terms": data[TermsKey.TERMS]
+    }
+
+
+def get_group_data(data: dict, group_id: int) -> dict:
+    group: dict = None
+
+    courses = []
+    teachers_id = []
+    for year in data[YearKey.YEAR_KEY]:
+        for group_item in year[YearKey.GROUPS]:
+            if group_item[GroupKEY.ID] == group_id:
+                group = group_item
+                for course_item in group[GroupKEY.COURSES]:
+                    course_item["related_group"] = group_item[GroupKEY.ID]
+                    courses.append(course_item)
+                    teachers_id.append(course_item[CoursesKey.TEACHER_ID])
+                break
+
+    if not group:
+        return {}
+
+    teachers = []
+
+    for teacher_item in data[TeacherKey.TEACHERS]:
+        if teacher_item[TeacherKey.ID] in teachers_id:
+            teachers.append(teacher_item)
+
+    courses_id = [course_item[CoursesKey.ID] for course_item in courses]
+    lessons = []
+    for lessson_item in data[LessonTtKey.LESSON_IN_TT]:
+        if lessson_item[LessonTtKey.COURSE_ID] in courses_id:
+            lessons.append(lessson_item)
+
+    class_rooms_id = [lesson_item[LessonTtKey.CLASS_ROOM_ID]
+                      for lesson_item in lessons]
+
+    class_rooms = []
+    for class_room_item in data[ClassRoomKey.CLASS_ROOMS]:
+        if class_room_item[ClassRoomKey.ID] in class_rooms_id:
+            class_rooms.append(class_room_item)
+
+    require_dict_key = ["id", "name", "code", "semester"]
+    group = get_sup_dict(group, require_dict_key)
+
+    return {
+        "class_rooms": class_rooms,
+        "courses": courses,
+        "teachers": teachers,
+        "group": group,
         "lessons": lessons,
         "days": data[DaysKey.DAYS],
         "terms": data[TermsKey.TERMS]
