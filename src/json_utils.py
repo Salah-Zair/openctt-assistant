@@ -438,6 +438,9 @@ def get_free_rooms(data: dict) -> dict:
     for lesson_item in data[LessonTtKey.LESSON_IN_TT]:
         lessons.append(lesson_item)
 
+    # GET all calss rooms
+    class_rooms = data[ClassRoomKey.CLASS_ROOMS]
+    
     # GET free class rooms by day and term
     free_class_rooms = {}
 
@@ -446,7 +449,7 @@ def get_free_rooms(data: dict) -> dict:
 
         for term_item in data[TermsKey.TERMS]:
             free_class_rooms[day_item[DaysKey.ID]].setdefault(
-                term_item[TermsKey.INDEX], [])
+                term_item[TermsKey.INDEX], set())
 
             # GET lesson by day and term
             lesson_by_day_term = get_lesson_by_day_term(
@@ -470,11 +473,12 @@ def get_free_rooms(data: dict) -> dict:
                                     valid_data = False
 
                             if valid_data:
-                                free_class_rooms[day_item[DaysKey.ID]][term_item[TermsKey.INDEX]].append(
-                                    class_room_item)
+                                free_class_rooms[day_item[DaysKey.ID]][term_item[TermsKey.INDEX]].add(
+                                    class_room_item[CoursesKey.ID])
 
     return {
         'free_class_rooms': free_class_rooms,
+        'class_rooms': class_rooms,
         'days': data[DaysKey.DAYS],
         'terms': data[TermsKey.TERMS],
     }
