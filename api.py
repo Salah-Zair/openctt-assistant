@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.settings import DOCUMENT_KEY, TeacherKey, GroupKEY, YearKey
 from src.xml_utils import xml_str_to_json_data
-from src.json_utils import get_group_data, get_course_data, get_class_room_data, get_teacher_data
+from src.json_utils import get_group_data, get_course_data, get_class_room_data, get_teacher_data,get_free_rooms
 
 db = TinyDB('temp.json')
 
@@ -175,6 +175,20 @@ async def get_class_room(document_key: str, teacher_id: int):
         data = result[0]
         teacher_data = get_teacher_data(data, teacher_id)
         return teacher_data
+
+    return {'message': 'not found'}
+
+
+
+@app.get("/free_class_rooms/{document_key}/")
+async def get_class_room(document_key: str):
+    document = Query()
+    result = table.search(document.document_key == document_key)
+
+    if result:
+        data = result[0]
+        free_class_rooms = get_free_rooms(data)
+        return free_class_rooms
 
     return {'message': 'not found'}
 

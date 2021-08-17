@@ -18,6 +18,16 @@ from src.utils import get_sup_dict
 # available_teachers
 # ble teacher vac
 
+def get_lesson_by_day_term(lessons: List[dict], day_index: int, term_index: int):
+    lesson_by_day_term = []
+    for lesson_item in lessons:
+        if lesson_item[LessonTtKey.DAY_INDEX] == day_index\
+                and lesson_item[LessonTtKey.TERM_INDEX] == term_index:
+            lesson_by_day_term.append(lesson_item)
+
+    return lesson_by_day_term
+
+
 def get_year_program_by_extid(data: dict, year_program_extid: str):
     years_program_data = data[YearKey.YEAR_KEY]
     for year_program in years_program_data:
@@ -357,7 +367,7 @@ def get_group_data(data: dict, group_id: int) -> dict:
     courses = []
     teachers_id = []
     for year_item in data[YearKey.YEAR_KEY]:
-        
+
         for group_item in year_item[YearKey.GROUPS]:
             if group_item[GroupKEY.ID] == group_id:
                 group = group_item
@@ -406,4 +416,65 @@ def get_group_data(data: dict, group_id: int) -> dict:
         "lessons": lessons,
         "days": data[DaysKey.DAYS],
         "terms": data[TermsKey.TERMS]
+    }
+
+
+def get_free_rooms(data: dict) -> dict:
+
+    # GET all courses
+    courses = []
+    courses_id = []
+
+    for year in data[YearKey.YEAR_KEY]:
+        for group in year[YearKey.GROUPS]:
+            for course_item in group[GroupKEY.COURSES]:
+                if course_item[CoursesKey.ID] not in courses_id:
+
+                    courses_id.append(course_item[CoursesKey.ID])
+                    courses.append(course_item)
+
+    # GET all Lessons
+    lessons = []
+    for lesson_item in data[LessonTtKey.LESSON_IN_TT]:
+        lessons.append(lesson_item)
+
+    # GET free class rooms by day and term
+    free_class_rooms = {}
+
+    for day_item in data[DaysKey.DAYS]:
+        free_class_rooms.setdefault(day_item[DaysKey.ID], {})
+
+        for term_item in data[TermsKey.TERMS]:
+            free_class_rooms[day_item[DaysKey.ID]].setdefault(
+                term_item[TermsKey.INDEX], [])
+
+            # GET lesson by day and term
+            lesson_by_day_term = get_lesson_by_day_term(
+                lessons, day_item[DaysKey.ID], term_item[TermsKey.INDEX])
+
+            lesson_by_day_term = lesson_by_day_term
+
+            class_rooms_ids_by_day_term = set([
+                lesson[LessonTtKey.CLASS_ROOM_ID] for lesson in lesson_by_day_term])
+
+            for class_room_item in data[ClassRoomKey.CLASS_ROOMS]:
+                if class_room_item[ClassRoomKey.ID] not in class_rooms_ids_by_day_term:
+                    if class_room_item[ClassRoomKey.SPEC_SLOTS]:
+                        spec_slot = class_room_item[ClassRoomKey.SPEC_SLOTS]
+                        spec_slot_type = spec_slot[ClassRoomKey.TYPE]
+
+                        if spec_slot_type == "unallowed":
+                            valid_data = True
+                            for spec_slot_item in spec_slot[ClassRoomKey.SPEC_SLOTS]:
+                                if spec_slot_item[ClassRoomKey.DAY_INDEX] == day_item[DaysKey.ID] and spec_slot_item[ClassRoomKey.TERM_INDEX] == term_item[TermsKey.INDEX]:
+                                    valid_data = False
+
+                            if valid_data:
+                                free_class_rooms[day_item[DaysKey.ID]][term_item[TermsKey.INDEX]].append(
+                                    class_room_item)
+
+    return {
+        'free_class_rooms': free_class_rooms,
+        'days': data[DaysKey.DAYS],
+        'terms': data[TermsKey.TERMS],
     }
