@@ -1,8 +1,10 @@
+import asyncio
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 import uuid
 
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile,HTTPException
 from tinydb.database import TinyDB
 from tinydb import Query
 
@@ -11,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.settings import DOCUMENT_KEY, TeacherKey, GroupKEY, YearKey
 from src.xml_utils import xml_str_to_json_data
-from src.json_utils import get_group_data, get_course_data, get_class_room_data, get_teacher_data,get_free_rooms
+from src.json_utils import get_group_data, get_course_data, get_class_room_data, get_teacher_data,get_free_rooms,get_available_teachers,get_courses
 
 db = TinyDB('temp.json')
 
@@ -71,6 +73,10 @@ async def get_group_table(data_key: str, key1: str, id: int):
 @app.get("/document/all")
 async def get_group_table():
     documents = table.all()
+
+    # for testing
+    await  asyncio.sleep(2)
+
     if documents:
         list_document = []
         for document in documents:
@@ -140,8 +146,9 @@ async def get_group_table(document_key: str, group_id: int):
     return {'message': 'not found'}
 
 
-@app.get("/course/{document_key}/{course_id}")
+@app.get("/courses/{document_key}/{course_id}")
 async def get_course(document_key: str, course_id: int):
+    await asyncio.sleep(3)
     document = Query()
     result = table.search(document.document_key == document_key)
 
@@ -150,7 +157,7 @@ async def get_course(document_key: str, course_id: int):
         course_data = get_course_data(data, course_id)
         return course_data
 
-    return {'message': 'not found'}
+    raise HTTPException(status_code=404, detail="Item not found")
 
 
 @app.get("/class_room/{document_key}/{class_room_id}")
@@ -166,7 +173,7 @@ async def get_class_room(document_key: str, class_room_id: int):
     return {'message': 'not found'}
 
 
-@app.get("/teacher/{document_key}/{teacher_id}")
+@app.get("/teachers/{document_key}/{teacher_id}")
 async def get_class_room(document_key: str, teacher_id: int):
     document = Query()
     result = table.search(document.document_key == document_key)
@@ -182,6 +189,7 @@ async def get_class_room(document_key: str, teacher_id: int):
 
 @app.get("/free_class_rooms/{document_key}/")
 async def get_class_room(document_key: str):
+    await asyncio.sleep(2)
     document = Query()
     result = table.search(document.document_key == document_key)
 
@@ -190,7 +198,38 @@ async def get_class_room(document_key: str):
         free_class_rooms = get_free_rooms(data)
         return free_class_rooms
 
+    raise HTTPException(status_code=404, detail="Item not found")
+
+
+@app.get("/available_teachers/{document_key}/")
+async def free_teachers(document_key: str):
+    document = Query()
+    result = table.search(document.document_key == document_key)
+
+    if result:
+        data = result[0]
+        free_class_rooms = get_available_teachers(data)
+        return free_class_rooms
+
     return {'message': 'not found'}
+
+
+#  Tables
+
+
+
+@app.get("/courses/{document_key}/")
+async def free_teachers(document_key: str):
+    document = Query()
+    result = table.search(document.document_key == document_key)
+
+    if result:
+        data = result[0]
+        free_class_rooms = get_courses(data)
+        return free_class_rooms
+
+    return {'message': 'not found'}
+
 
 
 

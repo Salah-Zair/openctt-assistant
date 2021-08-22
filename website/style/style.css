@@ -1,0 +1,76 @@
+.full-height-page {
+    height: 90vh;
+}
+
+#loading-icon {
+    animation-name: loading_animation;
+    animation-duration: 4s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes loading_animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    70% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#error-icon {
+    animation-name: error_animation;
+    animation-duration: 8s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes error_animation {
+    0% {
+        transform: scale(100%);
+    }
+    70% {
+        transform: scale(120%);
+    }
+    100% {
+        transform: scale(100%);
+    }
+}
+
+#document-area .row {
+    text-align: center;
+    width: 100%;
+}
+
+#document-area .row .card-column {
+    margin: 5px auto;
+    text-align: center;
+}
+
+#document-area .row .card-column a {
+    text-decoration: none;
+    font-weight: 500;
+    color: black;
+    transition: color 0.2s;
+}
+
+#document-area .row .card-column a:hover {
+    color: blue;
+}
+
+
+#document-area .row .card-column a .card {
+    position: relative;
+    top: 0;
+    transition: 1s;
+}
+
+
+#document-area .row .card-column a:hover .card {
+    position: relative;
+    top: -5px;
+    transition: 0.5s;
+}

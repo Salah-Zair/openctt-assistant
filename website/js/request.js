@@ -42,66 +42,14 @@ function build_group_table() {
 }
 
 
-function build_course_table() {
-    let table = $('#schedule');
-    let schedule_year = $("#schedule-year")
-    let schedule_group = $("#schedule-title")
-
-    schedule_year.append(`Not yet`);
-    schedule_group.append(`Course ${course_data.course.name}`);
-
-    row_length = temp_data.terms.length + 1;
-    column_length = temp_data.days.length + 1;
-
-    for (var row = 0; row < row_length; row++) {
-        column_raw = ""
-        for (var column = 0; column < column_length; column++) {
-            if (row == 0 && column == 0) {
-                column_raw += getEmptyHeader()
-            } else if (row == 0) {
-                column_raw += getCellDay(temp_data.days[column - 1]);
-            } else if (column == 0) {
-                column_raw += getTerm(temp_data.terms[row - 1]);
-            } else {
-                column_raw += get_lesson_cell(column, row);
-            }
-        }
-        row_raw = getRow(column_raw, row);
-        table.append(row_raw);
-    }
-}
-
-
-function getEmptyCell() {
-    return `<td></td>`
-}
-
-function getEmptyHeader() {
-    return `<th></th>`
-}
-
-function getCellDay(day_data) {
-    return `<th data-index='${day_data.id}'>${get_day_name_by_index(day_data.id)}</th>`
-}
-
-function getTerm(term) {
-    return `<td data-index='${term.index}'>${term.term}</td>`
-}
-
-function getRow(inner_data, row_number) {
-    return `<tr>${inner_data}</tr>`
-}
-
-
-
 function get_lesson_cell(day_index, term_index) {
     var data = ""
     temp_data.lessons.forEach(element => {
         if (element.day_index == day_index && element.term_index == term_index) {
-            course = get_course_data(temp_data.courses, element.course_id);
+            course = get_realted_item_by_id(temp_data.courses, element.course_id);
             group = temp_data.group;
-            teacher = get_course_data(temp_data.teachers, course.teacher_id);
-            class_room = get_class_room(temp_data.class_rooms, element.classroom_id);
+            teacher = get_realted_item_by_id(temp_data.teachers, course.teacher_id);
+            class_room = get_realted_item_by_id(temp_data.class_rooms, element.classroom_id);
             console.log(temp_data.courses);
 
 
@@ -137,72 +85,3 @@ function get_lesson_cell(day_index, term_index) {
 
     return "<td></td>"
 }
-
-function get_course_data(courses, course_id) {
-    let course;
-    courses.forEach(course_item => {
-        if (course_item.id == course_id) {
-            course = course_item
-        }
-    })
-    return course
-}
-
-
-function get_group_data(groups, group_id) {
-    let group;
-    groups.forEach(group_item => {
-        if (group_item.id == group_id) {
-            group = group_item
-        }
-    })
-    return group;
-}
-
-
-function get_teacher_data(teachers, teacher_id) {
-    let teacher;
-    teachers.forEach(teacher_item => {
-        if (teacher_item.id == teacher_id) {
-            teacher = teacher_item
-        }
-    })
-    return teacher;
-}
-
-
-function get_class_room(class_rooms, class_room_id) {
-    let class_room;
-    class_rooms.forEach(class_room_item => {
-        if (class_room_item.id == class_room_id) {
-            class_room = class_room_item
-        }
-    })
-
-    return class_room;
-}
-
-
-function get_day_name_by_index(day_index) {
-    switch (day_index) {
-        case 1:
-            return "Saturday"
-        case 2:
-            return "Sunday"
-        case 3:
-            return "Monday"
-        case 4:
-            return "Tuesday"
-        case 5:
-            return "Wednesday"
-        case 6:
-            return "Thursday"
-        case 7:
-            return "Friday"
-
-        default:
-            break;
-    }
-}
-
-

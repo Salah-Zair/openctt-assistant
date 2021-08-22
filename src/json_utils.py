@@ -18,10 +18,27 @@ from src.utils import get_sup_dict
 # available_teachers
 # ble teacher vac
 
+def get_courses(data):
+    courses = []
+    groups = []
+
+    for year in data[YearKey.YEAR_KEY]:
+
+        for group in year[YearKey.GROUPS]:
+            groups.append(group)
+            for course in group[GroupKEY.COURSES]:
+                course['related_group'] = group[GroupKEY.ID]
+                courses.append(course)
+
+    return {
+        'courses':courses,
+        'groups':groups
+    }
+
 def get_lesson_by_day_term(lessons: List[dict], day_index: int, term_index: int):
     lesson_by_day_term = []
     for lesson_item in lessons:
-        if lesson_item[LessonTtKey.DAY_INDEX] == day_index\
+        if lesson_item[LessonTtKey.DAY_INDEX] == day_index \
                 and lesson_item[LessonTtKey.TERM_INDEX] == term_index:
             lesson_by_day_term.append(lesson_item)
 
@@ -420,7 +437,6 @@ def get_group_data(data: dict, group_id: int) -> dict:
 
 
 def get_free_rooms(data: dict) -> dict:
-
     # GET all courses
     courses = []
     courses_id = []
@@ -429,7 +445,6 @@ def get_free_rooms(data: dict) -> dict:
         for group in year[YearKey.GROUPS]:
             for course_item in group[GroupKEY.COURSES]:
                 if course_item[CoursesKey.ID] not in courses_id:
-
                     courses_id.append(course_item[CoursesKey.ID])
                     courses.append(course_item)
 
@@ -440,7 +455,7 @@ def get_free_rooms(data: dict) -> dict:
 
     # GET all calss rooms
     class_rooms = data[ClassRoomKey.CLASS_ROOMS]
-    
+
     # GET free class rooms by day and term
     free_class_rooms = {}
 
@@ -469,7 +484,8 @@ def get_free_rooms(data: dict) -> dict:
                         if spec_slot_type == "unallowed":
                             valid_data = True
                             for spec_slot_item in spec_slot[ClassRoomKey.SPEC_SLOTS]:
-                                if spec_slot_item[ClassRoomKey.DAY_INDEX] == day_item[DaysKey.ID] and spec_slot_item[ClassRoomKey.TERM_INDEX] == term_item[TermsKey.INDEX]:
+                                if spec_slot_item[ClassRoomKey.DAY_INDEX] == day_item[DaysKey.ID] and spec_slot_item[
+                                    ClassRoomKey.TERM_INDEX] == term_item[TermsKey.INDEX]:
                                     valid_data = False
 
                             if valid_data:
@@ -481,4 +497,56 @@ def get_free_rooms(data: dict) -> dict:
         'class_rooms': class_rooms,
         'days': data[DaysKey.DAYS],
         'terms': data[TermsKey.TERMS],
+    }
+
+
+def get_available_teachers(data: dict) -> dict:
+    # for teacher in data[TeacherKey.TEACHERS]:
+    #     print(teacher[TeacherKey.EXT_ID])
+
+    teachers = [teacher_item for teacher_item in data[TeacherKey.TEACHERS] if teacher_item[TeacherKey.EXT_ID] == 'info']
+
+    teachers_id = [teacher_item[TeacherKey.ID] for teacher_item in teachers]
+
+    courses = []
+    courses_id = []
+
+    groups: List[dict] = []
+    groups_id: List[int] = []
+
+    require_group_key = ["id", "name", "code", "semester"]
+
+    for year in data[YearKey.YEAR_KEY]:
+        for group in year[YearKey.GROUPS]:
+            for course_item in group[GroupKEY.COURSES]:
+                if course_item[CoursesKey.TEACHER_ID] in teachers_id:
+                    if group[GroupKEY.ID] not in groups_id:
+                        # groups.append()
+                        groups_id.append(group[GroupKEY.ID])
+                        groups.append(get_sup_dict(group, require_group_key))
+
+                    course_item["related_group"] = group[GroupKEY.ID]
+                    courses_id.append(course_item[CoursesKey.ID])
+                    courses.append(course_item)
+
+    lessons = []
+    class_rooms_id = []
+    for lesson_item in data[LessonTtKey.LESSON_IN_TT]:
+        if lesson_item[LessonTtKey.COURSE_ID] in courses_id:
+            lessons.append(lesson_item)
+            class_rooms_id.append(lesson_item[LessonTtKey.CLASS_ROOM_ID])
+
+    class_rooms = []
+    for class_room_item in data[ClassRoomKey.CLASS_ROOMS]:
+        if class_room_item[ClassRoomKey.ID] in class_rooms_id:
+            class_rooms.append(class_room_item)
+
+    return {
+        'teachers': teachers,
+        'groups': groups,
+        'lessons': lessons,
+        'class_rooms': class_rooms,
+        'courses': courses,
+        'days': data[DaysKey.DAYS],
+        'terms': data[TermsKey.TERMS]
     }

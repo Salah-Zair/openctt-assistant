@@ -35,7 +35,7 @@ def get_teachers(root_element: ET) -> List[dict]:
             TeacherKey.LAST_NAME: node.find('last_name').text.lstrip(),
             TeacherKey.TITLE: node.find('title').text.lstrip(),
             TeacherKey.EDU_RANK: node.find('edu_rank').text.lstrip(),
-            TeacherKey.EXT_ID: get_node_if_exist(node, 'extid'),
+            TeacherKey.EXT_ID: node.find('extid').text.lstrip(),
         }
 
         if node.find('spec_slots'):

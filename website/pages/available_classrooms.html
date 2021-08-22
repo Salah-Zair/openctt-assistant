@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/extrnal_css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="../style/extrnal_css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/style.css">
     <title>Document</title>
 </head>
 <style>
@@ -517,17 +517,17 @@
     <footer>
 
     </footer>
-    <script src="js/extrnal_js/bootstrap.bundle.min.js"></script>
+    <script src="../js/extrnal_js/bootstrap.bundle.min.js"></script>
     <!-- JQUERY -->
-    <script src="js/extrnal_js/jquery-3.6.0.js"></script>
+    <script src="../js/extrnal_js/jquery-3.6.0.js"></script>
     <!-- AXIOS -->
-    <script src="js/extrnal_js/axios.js"></script>
+    <script src="../js/extrnal_js/axios.js"></script>
     <!-- SCRIP -->
-    <script src="js/pre_made_view.js"></script>
-    <script src="js/link_utils.js"></script>
-    <script src="js/schedule_utils.js"></script>
-    <script src="js/courses.js"></script>
-    <script src="js/api.js"></script>
+    <script src="../js/pre_made_view.js"></script>
+    <script src="../js/link_utils.js"></script>
+    <script src="../js/schedule_utils.js"></script>
+    <script src="../js/free_class_rooms.js"></script>
+    <script src="../js/api.js"></script>
     <script>
         $(document).ready(function () {
 
@@ -536,7 +536,7 @@
             
             if (document_link != null) {
                 if(item_id != null){
-                    get_courses_by_id(document_link,item_id)
+                    get_free_classrooms_by_id(document_link,item_id)
                 }else{
                     get_all_courses(document_link)
                     // get_all_courses(document_link)
