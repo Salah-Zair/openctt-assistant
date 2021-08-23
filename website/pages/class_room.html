@@ -526,24 +526,18 @@
     <script src="../js/pre_made_view.js"></script>
     <script src="../js/link_utils.js"></script>
     <script src="../js/schedule_utils.js"></script>
-    <script src="../js/teacher.js"></script>
+    <script src="../js/class_roomes.js"></script>
     <script src="../js/api.js"></script>
     <script>
         $(document).ready(function () {
-
             var document_link = findGetParameter("document");
             var item_id = findGetParameter("id");
-            
             if (document_link != null) {
                 if(item_id != null){
-                    get_teacher_by_id(document_link,item_id)
+                    get_all_class_room_id(document_link,item_id)
                 }else{
-                    get_all_teachers(document_link)
-                    // get_all_courses(document_link)
-                    
+                    get_all_class_rooms(document_link)
                 }
-                
-                
             } else {
                 get_all_documents();
             }

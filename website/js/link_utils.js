@@ -18,3 +18,17 @@ function findGetParameter(parameterName) {
 function navigate_to(url) {
     window.location = url;
 }
+
+function get_url_with() {
+    var url = window.location.origin;
+    var path_name = window.location.pathname;
+
+   var document = findGetParameter("document")
+
+
+
+    return {
+        "url": [url, path_name].join(""),
+        'document': document
+    }
+}

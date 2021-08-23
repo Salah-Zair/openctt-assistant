@@ -8,9 +8,46 @@
 
 
 
+function build_teachers_table(teacher_data){
+    url_components = get_url_with();
+
+    result_view = `<h3 class="mt-2">
+            <center>Courses</center>
+            </h3>
+<table class="table mt-5">
+    <thead class="table-dark table-borderless">
+        <tr>
+            <th scope="col" style="width: 10%;">ID</th>
+            <th scope="col">name</th>
+            <th scope="col">last name</th>
+        </tr>
+    </thead>
+    <tbody>`;
 
 
-function build_teacher_table(teacher_data) {
+    teacher_data.teachers.forEach(teacher => {
+        // var group = get_realted_item_by_id(data.groups, course.related_group)
+        // var teacher = get_realted_item_by_id(data.teachers, course.teacher_id)
+
+        
+        var document_id = url_components.document
+        var teacher_paramters = [`document=${document_id}`,`id=${teacher.id}`].join("&");
+        var teacher_url = [url_components['url'],teacher_paramters].join("?")
+
+        // console.log(course_paramters);
+        result_view += ` <tr>
+            <td><a href="${teacher_url}">${teacher.id}</a></td>
+            <td>${teacher.name}</td>
+            <td>${teacher.last_name.toUpperCase()}</td>
+        </tr>`;
+    });
+
+    result_view += `</tbody></table>`;
+    return result_view
+}
+
+
+function build_teacher_schedule(teacher_data) {
     let content_area = $("#content-area")
 
     content_area.html(`   <div class="container d-flex flex-column justify-content-center align-items-center test" >

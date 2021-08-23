@@ -9,7 +9,9 @@
 
 
 
-function build_table(free_class_room_data) {
+
+
+function build_free_class_rooms_schedule(free_class_room_data) {
     let content_area = $("#content-area")
 
     content_area.html(`   <div class="container d-flex flex-column justify-content-center align-items-center test" >
