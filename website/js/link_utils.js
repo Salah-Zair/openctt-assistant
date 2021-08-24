@@ -32,3 +32,14 @@ function get_url_with() {
         'document': document
     }
 }
+
+
+
+function get_page_url(){
+    host_url = window.location.host;
+    path_url = window.location.pathname
+
+    return [host_url,path_url].join('')
+}
+
+

@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="../style/style.css">
     <title>Document</title>
 </head>
-<style>
-    
-</style>
-
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -84,7 +80,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="groups.html" class="nav-link link-dark">
+                    <a href="groups.html" class="nav-link link-dark active">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#table"></use>
                         </svg>
@@ -100,7 +96,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="teachers.html" class="nav-link link-dark active">
+                    <a href="teachers.html" class="nav-link link-dark ">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#people-circle"></use>
                         </svg>
@@ -116,7 +112,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="class_room.html" class="nav-link link-dark">
+                    <a href="class_room.html" class="nav-link link-dark ">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#people-circle"></use>
                         </svg>
@@ -133,8 +129,10 @@
                 </li>
             </ul>
             <hr>
+
         </div>
         <div id="content-area" class="container">
+            <!-- TABLE OR SCHEDULE AREA -->
 
         </div>
     </section>
@@ -150,24 +148,18 @@
     <script src="../js/pre_made_view.js"></script>
     <script src="../js/link_utils.js"></script>
     <script src="../js/schedule_utils.js"></script>
-    <script src="../js/teacher.js"></script>
+    <script src="../js/groups.js"></script>
     <script src="../js/api.js"></script>
     <script>
         $(document).ready(function () {
-
             var document_link = findGetParameter("document");
             var item_id = findGetParameter("id");
-
             if (document_link != null) {
                 if (item_id != null) {
-                    get_teacher_by_id(document_link, item_id)
+                    get_all_group_id(document_link, item_id)
                 } else {
-                    get_all_teachers(document_link)
-                    // get_all_courses(document_link)
-
+                    get_all_groups(document_link)
                 }
-
-
             } else {
                 get_all_documents();
             }

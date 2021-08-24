@@ -30,10 +30,17 @@ def get_courses(data):
                 course['related_group'] = group[GroupKEY.ID]
                 courses.append(course)
 
+    teachers = []
+
+    for teacher in data[TeacherKey.TEACHERS]:
+        teachers.append(teacher)
+
     return {
-        'courses':courses,
-        'groups':groups
+        'courses': courses,
+        'groups': groups,
+        'teachers': teachers
     }
+
 
 def get_lesson_by_day_term(lessons: List[dict], day_index: int, term_index: int):
     lesson_by_day_term = []
@@ -549,4 +556,50 @@ def get_available_teachers(data: dict) -> dict:
         'courses': courses,
         'days': data[DaysKey.DAYS],
         'terms': data[TermsKey.TERMS]
+    }
+
+
+def get_teachers_by_document(data):
+    teachers = []
+
+    for teacher in data[TeacherKey.TEACHERS]:
+        teachers.append(teacher)
+
+    groups = []
+    courses = []
+
+    for year in data[YearKey.YEAR_KEY]:
+        for group_item in year[YearKey.GROUPS]:
+            groups.append(group_item)
+
+            for course in group_item[GroupKEY.COURSES]:
+                courses.append(course)
+
+    return {
+        'teachers': teachers,
+        'groups': groups,
+        'courses': courses,
+    }
+
+
+def get_class_rooms_by_document(data):
+    class_rooms = []
+
+    for class_room in data[ClassRoomKey.CLASS_ROOMS]:
+        class_rooms.append(class_room)
+
+    return {
+        "class_rooms": class_rooms
+    }
+
+# todo : fix names
+def get_groups_by_document(data):
+    groups = []
+
+    for year in data[YearKey.YEAR_KEY]:
+        for group in year[YearKey.GROUPS]:
+            groups.append(group)
+
+    return {
+        "groups": groups
     }

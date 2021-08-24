@@ -4,16 +4,17 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import uuid
 
-from fastapi import FastAPI, File, UploadFile,HTTPException
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from tinydb.database import TinyDB
 from tinydb import Query
 
 from fastapi.middleware.cors import CORSMiddleware
 
-
 from src.settings import DOCUMENT_KEY, TeacherKey, GroupKEY, YearKey
 from src.xml_utils import xml_str_to_json_data
-from src.json_utils import get_group_data, get_course_data, get_class_room_data, get_teacher_data,get_free_rooms,get_available_teachers,get_courses
+# todo: fix multi import
+from src.json_utils import get_group_data, get_course_data, get_class_room_data, get_teacher_data, get_free_rooms, \
+    get_available_teachers, get_courses, get_teachers_by_document, get_class_rooms_by_document,get_groups_by_document
 
 db = TinyDB('temp.json')
 
@@ -23,7 +24,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost",
-    "http://localhost:8000",
+    "http://localhost:5500",
     "http://127.0.0.1:8000",
     "http://127.0.0.1:5500",
 ]
@@ -35,6 +36,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
@@ -132,7 +134,7 @@ async def get_group(key: str, year_id: int, group_id: int):
     return {'message': 'not found'}
 
 
-@app.get("/group/{document_key}/{group_id}/")
+@app.get("/groups/{document_key}/{group_id}/")
 async def get_group_table(document_key: str, group_id: int):
     document = Query()
     result = table.search(document.document_key == document_key)
@@ -148,7 +150,6 @@ async def get_group_table(document_key: str, group_id: int):
 
 @app.get("/courses/{document_key}/{course_id}")
 async def get_course(document_key: str, course_id: int):
-    await asyncio.sleep(3)
     document = Query()
     result = table.search(document.document_key == document_key)
 
@@ -186,7 +187,6 @@ async def get_class_room(document_key: str, teacher_id: int):
     return {'message': 'not found'}
 
 
-
 @app.get("/free_class_rooms/{document_key}/")
 async def get_class_room(document_key: str):
     await asyncio.sleep(2)
@@ -217,7 +217,6 @@ async def free_teachers(document_key: str):
 #  Tables
 
 
-
 @app.get("/courses/{document_key}/")
 async def free_teachers(document_key: str):
     document = Query()
@@ -226,6 +225,47 @@ async def free_teachers(document_key: str):
     if result:
         data = result[0]
         free_class_rooms = get_courses(data)
+        return free_class_rooms
+
+    return {'message': 'not found'}
+
+
+@app.get("/teachers/{document_key}/")
+async def free_teachers(document_key: str):
+    document = Query()
+    result = table.search(document.document_key == document_key)
+
+    if result:
+        data = result[0]
+        free_class_rooms = get_teachers_by_document(data)
+        return free_class_rooms
+
+    return {'message': 'not found'}
+
+
+@app.get("/class-rooms/{document_key}/")
+async def free_teachers(document_key: str):
+    document = Query()
+    result = table.search(document.document_key == document_key)
+
+    if result:
+        data = result[0]
+        free_class_rooms = get_class_rooms_by_document(data)
+        return free_class_rooms
+
+    return {'message': 'not found'}
+
+
+
+
+@app.get("/groups/{document_key}/")
+async def free_teachers(document_key: str):
+    document = Query()
+    result = table.search(document.document_key == document_key)
+
+    if result:
+        data = result[0]
+        free_class_rooms = get_groups_by_document(data)
         return free_class_rooms
 
     return {'message': 'not found'}

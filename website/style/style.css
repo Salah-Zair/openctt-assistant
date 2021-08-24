@@ -74,3 +74,119 @@
     top: -5px;
     transition: 0.5s;
 }
+
+
+/* -------------------- */
+
+
+
+@font-face {
+    font-family: 'open sans';
+    src: url('../assets/fonts/Open_Sans/OpenSans-Regular.ttf'), url('fonts/EntezareZohoor2.ttf') format('truetype'), url('fonts/EntezareZohoor2.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'open sans';
+}
+
+td {
+    height: 50px;
+    width: 140px;
+}
+
+th {
+    font-weight: 500;
+}
+
+table,
+th,
+td {
+    border: 1px solid grey;
+    text-align: center;
+}
+
+
+#schedule-year {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+#schedule-title {
+    margin: 5px 0;
+}
+
+
+.free-class-rooms ul {}
+
+.free-class-rooms ul li {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    text-align: start;
+}
+
+.box-color {
+    font-size: 14px;
+}
+
+.box-color .box {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border: 0.4px solid rgb(196, 196, 196);
+}
+
+.box-color .box.cours {
+    background-color: rgb(150, 253, 159);
+}
+
+.box-color .box.td {
+    background-color: rgb(255, 255, 207);
+}
+
+.box-color .box.tp {
+    background-color: rgb(210, 243, 255);
+}
+
+.course-item-data {
+    border-radius: 3px;
+    margin: 3px;
+    border: 0.4px solid rgb(191, 191, 191);
+}
+
+.course-item-data.cours {
+    background-color: rgb(195, 253, 200);
+}
+
+.course-item-data.td {
+    background-color: rgb(255, 255, 207);
+}
+
+.course-item-data.tp {
+    background-color: rgb(210, 243, 255);
+}
+
+.course-item-data a {
+    color: black;
+    text-decoration: none;
+}
+
+.course-item-data a:hover {
+    color: rgb(66, 150, 253);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.course-item-data .course-data {
+    font-size: 1rem;
+}
+
+.course-item-data .class-room-data {
+    font-size: 0.8rem;
+}
+
+.course-item-data .teacher-data {
+    font-size: 0.75rem;
+}

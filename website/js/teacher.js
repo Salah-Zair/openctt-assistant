@@ -1,10 +1,3 @@
-// var teacher_data =
-//     { "years": { "name": "X- assistance", "extid": "aae98b78-fe10-11eb-ac43-b0104192812f", "groups": [{ "id": 22, "name": "3 ISIL-a", "code": "", "semester": "6", "extid": "", "courses": [{ "id": 320, "name": "Test et qualité de logiciel", "short_name": "TQL3Info 3ISIL", "course_type": "tp", "num_of_lessons_per_week": 1, "num_of_enrolled_students": 35, "group_name": "", "teacher_id": 53, "extid": "", "to_hold_together_with": [] }] }, { "id": 23, "name": "M1 GSI-a", "code": "", "semester": "2", "extid": "", "courses": [{ "id": 321, "name": "gestion de données multimédia", "short_name": "multimedia", "course_type": "TP", "num_of_lessons_per_week": 1, "num_of_enrolled_students": 30, "group_name": "", "teacher_id": 55, "extid": "", "to_hold_together_with": [] }, { "id": 322, "name": "Technologie des middle ware", "short_name": "MIDDLEWAREM1 MGSI", "course_type": "TP", "num_of_lessons_per_week": 2, "num_of_enrolled_students": 35, "group_name": "", "teacher_id": 43, "extid": "", "to_hold_together_with": [] }] }] }, "class_rooms": [{ "id": 1, "name": "Amphi 5", "extid": "", "capacity": 1000, "spec_slots": { "type": "unallowed", "spec_slots": [{ "day_index": 1, "term_index": 4 }, { "day_index": 2, "term_index": 4 }, { "day_index": 3, "term_index": 4 }, { "day_index": 4, "term_index": 4 }, { "day_index": 5, "term_index": 4 }, { "day_index": 6, "term_index": 4 }] } }, { "id": 3, "name": "Grande Salle 12", "extid": "", "capacity": 120, "spec_slots": { "type": "unallowed", "spec_slots": [{ "day_index": 1, "term_index": 4 }, { "day_index": 2, "term_index": 4 }, { "day_index": 3, "term_index": 4 }, { "day_index": 4, "term_index": 4 }, { "day_index": 5, "term_index": 4 }, { "day_index": 6, "term_index": 4 }] } }, { "id": 10, "name": "Salle 40", "extid": "", "capacity": 40, "spec_slots": { "type": "unallowed", "spec_slots": [{ "day_index": 1, "term_index": 4 }, { "day_index": 2, "term_index": 4 }, { "day_index": 3, "term_index": 4 }, { "day_index": 4, "term_index": 4 }, { "day_index": 5, "term_index": 4 }, { "day_index": 6, "term_index": 4 }] } }, { "id": 22, "name": "Salle-p 46", "extid": "", "capacity": 30, "spec_slots": { "type": "unallowed", "spec_slots": [{ "day_index": 1, "term_index": 4 }, { "day_index": 2, "term_index": 4 }, { "day_index": 3, "term_index": 4 }, { "day_index": 4, "term_index": 4 }, { "day_index": 5, "term_index": 4 }, { "day_index": 6, "term_index": 4 }] } }], "courses": [{ "id": 221, "name": "Recherche d'information", "short_name": "RI3Info 3ISIL", "course_type": "cours", "num_of_lessons_per_week": 1, "num_of_enrolled_students": 25, "group_name": "", "teacher_id": 1, "extid": "", "to_hold_together_with": [], "related_group": 14 }, { "id": 222, "name": "Recherche d'information", "short_name": "RI3Info 3ISIL", "course_type": "td", "num_of_lessons_per_week": 1, "num_of_enrolled_students": 35, "group_name": "", "teacher_id": 1, "extid": "", "to_hold_together_with": [], "related_group": 14 }, { "id": 278, "name": "Système d'exploitation", "short_name": "SEM1 MISIL", "course_type": "cours", "num_of_lessons_per_week": 1, "num_of_enrolled_students": 35, "group_name": "", "teacher_id": 1, "extid": "", "to_hold_together_with": [297], "related_group": 18 }, { "id": 280, "name": "Systemes d'exploitation", "short_name": "SE", "course_type": "TD", "num_of_lessons_per_week": 1, "num_of_enrolled_students": 25, "group_name": "", "teacher_id": 1, "extid": "", "to_hold_together_with": [], "related_group": 18 }, { "id": 297, "name": "Système d'exploitation", "short_name": "SEM1 MISIL", "course_type": "cours", "num_of_lessons_per_week": 1, "num_of_enrolled_students": 35, "group_name": "", "teacher_id": 1, "extid": "", "to_hold_together_with": [278], "related_group": 19 }, { "id": 299, "name": "Systemes d'exploitation", "short_name": "SE", "course_type": "TD", "num_of_lessons_per_week": 1, "num_of_enrolled_students": 25, "group_name": "", "teacher_id": 1, "extid": "", "to_hold_together_with": [], "related_group": 19 }], "teacher": { "id": 1, "name": "Akli", "last_name": "Abbas", "title": "Mr", "edu_rank": "MCB", "extid": null }, "groups": [{ "id": 14, "name": "3Info", "code": "ISIL1", "semester": "6" }, { "id": 18, "name": "M1 ISIL G1", "code": "", "semester": "2" }, { "id": 19, "name": "M1 ISIL G2", "code": "", "semester": "2" }], "lessons": [{ "course_id": 221, "day_index": 2, "term_index": 2, "classroom_id": 1 }, { "course_id": 222, "day_index": 2, "term_index": 3, "classroom_id": 10 }, { "course_id": 278, "day_index": 5, "term_index": 5, "classroom_id": 3 }, { "course_id": 280, "day_index": 5, "term_index": 1, "classroom_id": 3 }, { "course_id": 297, "day_index": 5, "term_index": 5, "classroom_id": 3 }, { "course_id": 299, "day_index": 5, "term_index": 2, "classroom_id": 22 }], "days": [{ "id": 1 }, { "id": 2 }, { "id": 3 }, { "id": 4 }, { "id": 5 }, { "id": 6 }], "terms": [{ "index": 1, "term": "08:00-09:30" }, { "index": 2, "term": "09:30-11:00" }, { "index": 3, "term": "11:00-12:30" }, { "index": 4, "term": "12:30-13:00" }, { "index": 5, "term": "13:00-14:30" }, { "index": 6, "term": "14:30-16:00" }] }
-
-// // START POINT
-// $(document).ready(function () {
-//     build_course_table();
-// });
 
 
 
@@ -19,22 +12,19 @@ function build_teachers_table(teacher_data){
         <tr>
             <th scope="col" style="width: 10%;">ID</th>
             <th scope="col">name</th>
-            <th scope="col">last name</th>
+            <th scope="col">last name</th>        // console.log(course_paramters);
+
         </tr>
     </thead>
     <tbody>`;
 
 
     teacher_data.teachers.forEach(teacher => {
-        // var group = get_realted_item_by_id(data.groups, course.related_group)
-        // var teacher = get_realted_item_by_id(data.teachers, course.teacher_id)
-
         
         var document_id = url_components.document
         var teacher_paramters = [`document=${document_id}`,`id=${teacher.id}`].join("&");
         var teacher_url = [url_components['url'],teacher_paramters].join("?")
 
-        // console.log(course_paramters);
         result_view += ` <tr>
             <td><a href="${teacher_url}">${teacher.id}</a></td>
             <td>${teacher.name}</td>
@@ -135,11 +125,6 @@ function get_lesson_cell(teacher_data,day_index, term_index) {
             inner_data += `</a>`;
             inner_data += `</div>`;
 
-            // inner_data += `<div class='teacher-data'>`;
-            // inner_data += `<a href='#'>`;
-            // inner_data += `${teacher.name} ${teacher.last_name}`;
-            // inner_data += `</a>`;
-            // inner_data += `</div>`;
 
             inner_data += `</div>`;
 

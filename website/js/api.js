@@ -18,8 +18,9 @@ function get_all_documents() {
 
   console.log(url);
   axios.get('http://localhost:8000/document/all')
-    .then(function (response) {
-      response.data.forEach(element => {
+  .then(function (response) {
+    console.log(response.data);
+    response.data.forEach(element => {
 
         options = [my_url, `document=${element.document_key}`].join("?")
 
@@ -28,8 +29,8 @@ function get_all_documents() {
         <div class="col-xl-3 col-md-4 col-12 card-column">
         <a href="${options}">
         <div class="card p-2">
-        <div class="title">${element.name}</div>
-        2016/2017
+        <div class="title">${element.edu_institution_name}</div>
+        ${element.school_year}
         </div>
         </a>
         </div>
@@ -38,8 +39,8 @@ function get_all_documents() {
 
       result_view += `</div></div>`
       data = response.data
-      $("#content-area").html(result_view);
       console.log(data);
+      $("#content-area").html(result_view);
     })
     .catch(function (error) {
       // handle error
@@ -206,7 +207,7 @@ function get_all_class_room_id(document_link, id) {
 
 
 
-function get_free_classrooms_by_id(document_link) {
+function get_free_classrooms(document_link) {
   $("#content-area").html(loading_view);
   axios.get(`http://localhost:8000/free_class_rooms/${document_link}/`)
     .then(function (response) {
@@ -216,13 +217,27 @@ function get_free_classrooms_by_id(document_link) {
       build_free_class_rooms_schedule(data)
     })
     .catch(function (error) {
-      // handle error
       $("#content-area").html(error_view);
+    })
+    .then(function () {
+    });
 
+}
+
+function get_available_teachers(document_link) {
+  $("#content-area").html(loading_view);
+  axios.get(`http://localhost:8000/available_teachers/${document_link}/`)
+    .then(function (response) {
+      console.log(response);
+      data = response.data
+      console.log(data);
+      build_available_teachers(data)
+    })
+    .catch(function (error) {
+      $("#content-area").html(error_view);
       console.log(error);
     })
     .then(function () {
-      // always executed
     });
 
 }
@@ -230,3 +245,40 @@ function get_free_classrooms_by_id(document_link) {
 
 
 
+
+function get_all_groups(document_link) {
+  $("#content-area").html(loading_view);
+  axios.get(`http://localhost:8000/groups/${document_link}/`)
+    .then(function (response) {
+      console.log(response);
+      data = response.data
+      console.log(data);
+      var result_view = build_groups_table(data)
+      $("#content-area").html(result_view);
+    })
+    .catch(function (error) {
+      $("#content-area").html(error_view);
+    })
+    .then(function () {
+    });
+
+}
+
+
+function get_all_group_id(document_link, id) {
+  $("#content-area").html(loading_view);
+  axios.get(`http://localhost:8000/groups/${document_link}/${id}`)
+    .then(function (response) {
+      console.log(response);
+      data = response.data
+      console.log(data);
+      var result_view = build_group_schedule(data)
+      $("#content-area").html(result_view);
+    })
+    .catch(function (error) {
+      $("#content-area").html(error_view);
+      console.log(error);
+    })
+    .then(function () {
+    });
+}

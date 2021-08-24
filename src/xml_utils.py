@@ -55,6 +55,8 @@ def get_teachers(root_element: ET) -> List[dict]:
     return teachers
 
 
+
+
 def get_days(root_element: ET) -> List[dict]:
     days = []
     for node in root_element.findall("incl_days/day_index"):
@@ -221,3 +223,4 @@ def xml_str_to_json_data(str_data: str):
     }
 
     return data
+
