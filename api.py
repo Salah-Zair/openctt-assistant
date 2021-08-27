@@ -14,7 +14,7 @@ from src.settings import DOCUMENT_KEY, TeacherKey, GroupKEY, YearKey
 from src.xml_utils import xml_str_to_json_data
 # todo: fix multi import
 from src.json_utils import get_group_data, get_course_data, get_class_room_data, get_teacher_data, get_free_rooms, \
-    get_available_teachers, get_courses, get_teachers_by_document, get_class_rooms_by_document,get_groups_by_document
+    get_available_teachers, get_courses, get_teachers_by_document, get_class_rooms_by_document, get_groups_by_document
 
 db = TinyDB('temp.json')
 
@@ -55,9 +55,7 @@ async def create_upload_file(file: UploadFile = File(...)):
 
     except Exception as e:
         print(e)
-        return {
-            'message': str(e)
-        }
+        raise HTTPException(status_code=404, detail="Item not found")
 
 
 @app.get("/group/table/{data_key}/{key1}/{id}/")
@@ -75,9 +73,6 @@ async def get_group_table(data_key: str, key1: str, id: int):
 @app.get("/document/all")
 async def get_group_table():
     documents = table.all()
-
-    # for testing
-    await  asyncio.sleep(2)
 
     if documents:
         list_document = []
@@ -189,7 +184,7 @@ async def get_class_room(document_key: str, teacher_id: int):
 
 @app.get("/free_class_rooms/{document_key}/")
 async def get_class_room(document_key: str):
-    await asyncio.sleep(2)
+    # await asyncio.sleep(2)
     document = Query()
     result = table.search(document.document_key == document_key)
 
@@ -256,8 +251,6 @@ async def free_teachers(document_key: str):
     return {'message': 'not found'}
 
 
-
-
 @app.get("/groups/{document_key}/")
 async def free_teachers(document_key: str):
     document = Query()
@@ -269,8 +262,6 @@ async def free_teachers(document_key: str):
         return free_class_rooms
 
     return {'message': 'not found'}
-
-
 
 
 @app.get("/")
