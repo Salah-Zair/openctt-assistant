@@ -1,9 +1,9 @@
 
 
-    function build_groups_table(data) {
-        url_components = get_url_with();
-    
-        result_view = `<h3 class="mt-2">
+function build_groups_table(data) {
+    url_components = get_url_with();
+
+    result_view = `<h3 class="mt-2">
                 <center>Courses</center>
                 </h3>
     <table class="table mt-5">
@@ -16,26 +16,26 @@
         </tr>
         </thead>
         <tbody>`;
-    
-    
-        data.groups.forEach(group => {
-            
-            var document_id = url_components.document
-            var group_paramters = [`document=${document_id}`,`id=${group.id}`].join("&");
-            var group_url = [url_components['url'],group_paramters].join("?")
-    
-            // console.log(course_paramters);
-            result_view += ` <tr>
+
+
+    data.groups.forEach(group => {
+
+        var document_id = url_components.document
+        var group_paramters = [`document=${document_id}`, `id=${group.id}`].join("&");
+        var group_url = [url_components['url'], group_paramters].join("?")
+
+        // console.log(course_paramters);
+        result_view += ` <tr>
                 <td><a href=${group_url}>${group.id}</a></td>
                 <td>${group.name}</td>
                 <td>${group.code}</td>
                 <td>${group.semester}</td>
             </tr>`;
-        });
-    
-        result_view += `</tbody></table>`;
-        return result_view;
-    }
+    });
+
+    result_view += `</tbody></table>`;
+    return result_view;
+}
 
 
 function build_group_schedule(temp_data) {
@@ -83,7 +83,7 @@ function build_group_schedule(temp_data) {
             } else if (column == 0) {
                 column_raw += getTerm(temp_data.terms[row - 1]);
             } else {
-                column_raw += get_lesson_cell(temp_data,column, row);
+                column_raw += get_lesson_cell(temp_data, column, row);
             }
         }
         row_raw = getRow(column_raw, row);
@@ -92,14 +92,16 @@ function build_group_schedule(temp_data) {
 }
 
 
-function get_lesson_cell(temp_data,day_index, term_index) {
+function get_lesson_cell(temp_data, day_index, term_index) {
     var data = ""
-    
+
     base_url = window.location.host
-    
-    course_page = "courses.html";
-    group_page = "groups.html";
-    teacher_page = "teachers.html";
+
+    var course_page = "courses.html";
+    var teacher_page = "teachers.html";
+    var class_room_page = "class_room.html";
+    var group_page = 'groups.html';
+
 
     document_key = findGetParameter('document')
 
@@ -113,25 +115,26 @@ function get_lesson_cell(temp_data,day_index, term_index) {
 
 
             // URLS     
-            teacher_url_paramters = [`document=${document_key}`,`id=${teacher.id}`].join("&")
+            // teacher_url_paramters = [`document=${document_key}`, `id=${teacher.id}`].join("&")
 
-            teacher_url = [teacher_page,teacher_url_paramters].join("?")
-
+            var teacher_url = [teacher_page, [`document=${document_key}`, `id=${teacher.id}`].join("&")].join("?")
+            var course_url = [course_page, [`document=${document_key}`, `id=${course.id}`].join("&")].join("?")
+            var class_room_url = [class_room_page, [`document=${document_key}`, `id=${class_room.id}`].join("&")].join("?")
             // ---------
-            
+
             inner_data = `<div class='course-item-data ${course.course_type.toLocaleLowerCase()}'>`;
 
 
 
 
             inner_data += `<div class='course-data'>`;
-            inner_data += `<a href=''>`;
+            inner_data += `<a href='${course_url}'>`;
             inner_data += `${course.short_name}`;
             inner_data += `</a>`;
             inner_data += `</div>`;
 
             inner_data += `<div class='class-room-data'>`;
-            inner_data += `<a href='#'>`;
+            inner_data += `<a href='${class_room_url}'>`;
             inner_data += `${class_room.name}`;
             inner_data += `</a>`;
             inner_data += `</div>`;

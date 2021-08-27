@@ -45,6 +45,7 @@ function build_class_room_schedule(class_room_data) {
     content_area.html(`   <div class="container d-flex flex-column justify-content-center align-items-center test" >
     <div id="schedule-year" class="mb-3"></div>
 
+   
     <div id="schedule-title"></div>
     <table border="1" id="schedule">
     </table>
@@ -97,6 +98,12 @@ function get_lesson_cell(class_room_data, day_index, term_index) {
     var data = ""
 
 
+    var course_page = "courses.html";
+    var teacher_page = "teachers.html";
+    var class_room_page = "class_room.html";
+    var group_page = 'groups.html';
+    document_key = findGetParameter('document');
+
     class_room_data.lessons.forEach(element => {
         if (element.day_index == day_index && element.term_index == term_index) {
             course = get_realted_item_by_id(class_room_data.courses, element.course_id);
@@ -105,12 +112,15 @@ function get_lesson_cell(class_room_data, day_index, term_index) {
             teacher = get_realted_item_by_id(class_room_data.teachers, course.teacher_id);
             // class_room = get_realted_item_by_id(class_room_data.class_rooms, element.classroom_id);
 
+            var group_url = [group_page, [`document=${document_key}`, `id=${group.id}`].join("&")].join("?")
+            var course_url = [course_page, [`document=${document_key}`, `id=${course.id}`].join("&")].join("?")
+            var teacher_url = [teacher_page, [`document=${document_key}`, `id=${teacher.id}`].join("&")].join("?")
 
             inner_data = `<div class='course-item-data ${course.course_type.toLocaleLowerCase()}'>`;
 
 
             inner_data += `<div class='course-data'>`;
-            inner_data += `<a href='#'>`;
+            inner_data += `<a href='${course_url}'>`;
             inner_data += `${course.short_name}`;
             inner_data += `</a>`;
             inner_data += `</div>`;
@@ -122,13 +132,13 @@ function get_lesson_cell(class_room_data, day_index, term_index) {
             // inner_data += `</div>`;
 
             inner_data += `<div class='class-room-data'>`;
-            inner_data += `<a href='#'>`;
+            inner_data += `<a href='${group_url}'>`;
             inner_data += `${group.name}`;
             inner_data += `</a>`;
             inner_data += `</div>`;
 
             inner_data += `<div class='teacher-data'>`;
-            inner_data += `<a href='#'>`;
+            inner_data += `<a href='${teacher_url}'>`;
             inner_data += `${teacher.name} ${teacher.last_name}`;
             inner_data += `</a>`;
             inner_data += `</div>`;

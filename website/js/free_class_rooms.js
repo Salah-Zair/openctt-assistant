@@ -4,30 +4,43 @@
 function build_free_class_rooms_schedule(free_class_room_data) {
     let content_area = $("#content-area")
 
+    var choiceses = ["all", "amphi", "salle", "tp"];
+
     content_area.html(`   <div class="container d-flex flex-column justify-content-center align-items-center test" >
     <div id="schedule-year" class="mb-3"></div>
-
-    <div id="schedule-title"></div>
+    <div id="schedule-title" ></div>
+    <select id='class-room-type' class="form-select mb-3" aria-label="Default select example" style='width:200px;'>
+        <option selected>all</option>
+        <option value="1">amphi</option>
+        <option value="2">salle</option>
+        <option value="3">tp</option>
+    </select>
     <table border="1" id="schedule">
-    </table>
-    <div class="d-flex justify-content-end meta-data-table" style="width: 70%;">
-        <div class="course-type-color-data">
-            <div class="box-color ">
-                <span class="box cours"></span> Course
-            </div>
-            <div class="box-color ">
-                <span class="box td"></span> TD
+  `)
 
-            </div>
-            <div class="box-color ">
-                <span class="box tp"></span> TP
-            </div>
-        </div>
-    </div>`)
 
+    var select_field = $('#class-room-type')
+    selected_item = 'all';
+
+    select_field.change(function () {
+        selected_item = select_field.find(":selected").text();
+        _build(free_class_room_data, selected_item);
+    });
+
+    _build(free_class_room_data, selected_item);
+
+
+}
+
+
+function _build(free_class_room_data, selected_item) {
     let table = $('#schedule');
     let schedule_year = $("#schedule-year")
     let schedule_group = $("#schedule-title")
+
+    table.html("");
+    schedule_year.html("");
+    schedule_group.html("");
 
     schedule_year.append(`Not yet`);
     schedule_group.append(`Free ClassRooms`);
@@ -45,7 +58,7 @@ function build_free_class_rooms_schedule(free_class_room_data) {
             } else if (column == 0) {
                 column_raw += getTerm(free_class_room_data.terms[row - 1]);
             } else {
-                column_raw += get_lesson_cell(free_class_room_data,column, row);
+                column_raw += get_lesson_cell(free_class_room_data, selected_item, column, row);
             }
         }
         row_raw = getRow(column_raw, row);
@@ -53,24 +66,40 @@ function build_free_class_rooms_schedule(free_class_room_data) {
     }
 }
 
-
-
-
 var a = [];
 
-function get_lesson_cell(free_class_room_data,day_index, term_index) {
+function get_lesson_cell(free_class_room_data, selected_item, day_index, term_index) {
+
+
     var data = ""
     inner_data = `<div class='free-class-rooms'>`;
     inner_data += `<ul>`
+
+
+    var class_room_page = "class_room.html";
+    document_key = findGetParameter('document')
+
+
     var tp_items = free_class_room_data.free_class_rooms[day_index][term_index].forEach(class_room_id => {
 
-        class_room = get_realted_item_by_id(free_class_room_data.class_rooms,class_room_id);
+        class_room = get_realted_item_by_id(free_class_room_data.class_rooms, class_room_id);
+        var class_room_url = [class_room_page, [`document=${document_key}`, `id=${class_room.id}`].join("&")].join("?")
 
-        inner_data += `<li>`
-        inner_data += `<a href='#'>`;
-        inner_data += `${class_room.name}`;
-        inner_data += `</a>`;
-        inner_data += `</li>`
+        if ("All".includes(selected_item)) {
+            inner_data += `<li>`
+            inner_data += `<a href='${class_room_url}'>`;
+            inner_data += `${class_room.name}`;
+            inner_data += `</a>`;
+            inner_data += `</li>`
+        }
+        else if (class_room.name.toLowerCase().includes(selected_item)) {
+            inner_data += `<li>`
+            inner_data += `<a href='${class_room_url}'>`;
+            inner_data += `${class_room.name}`;
+            inner_data += `</a>`;
+            inner_data += `</li>`
+        }
+
 
 
     });

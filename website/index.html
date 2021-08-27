@@ -10,510 +10,74 @@
     <title>Document</title>
 </head>
 <style>
-    @font-face {
-        font-family: 'open sans';
-        src: url('assets/fonts/Open_Sans/OpenSans-Regular.ttf'), url('fonts/EntezareZohoor2.ttf') format('truetype'), url('fonts/EntezareZohoor2.svg') format('svg');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    body {
-        font-family: 'open sans';
-    }
-
-    td {
-        height: 50px;
-        width: 140px;
-    }
-
-    th {
-        font-weight: 500;
-    }
-
-    table,
-    th,
-    td {
-        border: 1px solid grey;
-        text-align: center;
-    }
-
-
-    #schedule-year {
-        font-size: 1.3rem;
-        font-weight: 500;
-    }
-
-    #schedule-title {
-        margin: 5px 0;
-    }
-
-
-    .free-class-rooms ul {}
-
-    .free-class-rooms ul li {
-        margin: 0;
-        padding: 0;
-        font-size: 12px;
-        text-align: start;
-    }
-
-    .box-color {
-        font-size: 14px;
-    }
-
-    .box-color .box {
-        width: 10px;
-        height: 10px;
-        display: inline-block;
-        border: 0.4px solid rgb(196, 196, 196);
-    }
-
-    .box-color .box.cours {
-        background-color: rgb(150, 253, 159);
-    }
-
-    .box-color .box.td {
-        background-color: rgb(255, 255, 207);
-    }
-
-    .box-color .box.tp {
-        background-color: rgb(210, 243, 255);
-    }
-
-    .course-item-data {
-        border-radius: 3px;
-        margin: 3px;
-        border: 0.4px solid rgb(191, 191, 191);
-    }
-
-    .course-item-data.cours {
-        background-color: rgb(195, 253, 200);
-    }
-
-    .course-item-data.td {
-        background-color: rgb(255, 255, 207);
-    }
-
-    .course-item-data.tp {
-        background-color: rgb(210, 243, 255);
-    }
-
-    .course-item-data a {
-        color: black;
-        text-decoration: none;
-    }
-
-    .course-item-data a:hover {
-        color: rgb(66, 150, 253);
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .course-item-data .course-data {
-        font-size: 1rem;
-    }
-
-    .course-item-data .class-room-data {
-        font-size: 0.8rem;
-    }
-
-    .course-item-data .teacher-data {
-        font-size: 0.75rem;
+    body{
+        background-color: white;
     }
 </style>
-
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="#">Openctt assistant</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-4 mb-2 ms-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            <a class="nav-link " href="pages/document.html">Tools</a>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
                 </div>
             </div>
         </nav>
     </header>
-    <section class="d-flex align-items-stretch ">
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light " style="width: 280px;">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-                <span class="fs-4">Sidebar</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="#" class="nav-link " aria-current="page">
-                        <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href="#home"></use>
-                        </svg>
-                        Documents
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href="#speedometer2"></use>
-                        </svg>
-                        Years
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href="#table"></use>
-                        </svg>
-                        Groups
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark active">
-                        <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href="#grid"></use>
-                        </svg>
-                        Courses
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href="#people-circle"></use>
-                        </svg>
-                        Teachers
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href="#people-circle"></use>
-                        </svg>
-                        availbal Teachers
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href="#people-circle"></use>
-                        </svg>
-                        Classrooms
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href="#people-circle"></use>
-                        </svg>
-                        free classrooms
-                    </a>
-                </li>
-            </ul>
-            <hr>
-            <!-- <div class="dropdown">
-              <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>mdo</strong>
-              </a>
-              <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
-              </ul>
-            </div> -->
-        </div>
-        <div id="content-area" class="container">
-
-
-            <!-- <div class="container d-flex flex-column justify-content-center align-items-center test" >
-                <div id="schedule-year" class="mb-3"></div>
-        
-                <div id="schedule-title"></div>
-                <table border="1" id="schedule">
-                </table>
-                <div class="d-flex justify-content-end meta-data-table" style="width: 70%;">
-                    <div class="course-type-color-data">
-                        <div class="box-color ">
-                            <span class="box cours"></span> Course
-                        </div>
-                        <div class="box-color ">
-                            <span class="box td"></span> TD
-        
-                        </div>
-                        <div class="box-color ">
-                            <span class="box tp"></span> TP
-                        </div>
+    <section>
+        <div id="carouselExampleDark" class="carousel carousel-dark slide " data-bs-ride="carousel" >
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="10000">
+                  <div class="mb-5">
+                      <img src="assets/images/screenshot_2.png" class="d-block w-50 m-auto d-block mb-5" alt="...">
                     </div>
+                    <br><br><br><br>
+                    <div class="carousel-caption d-none d-md-block mt-5">
+                  <h5>First slide label</h5>
+                  <p>Some representative placeholder content for the first slide.</p>
                 </div>
-            </div> -->
-
-            <!-- <div class="data-area  p-4"> -->
-
-            <!-- <h3 class="mt-2">
-                    <center>Document</center>
-                </h3> -->
-            <!-- 
-                <table class="table mt-5">
-                    <thead class="table-dark table-borderless">
-                      <tr>
-                        <th scope="col">Key</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Year</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th style="width: 50%;">dda0bf69-011d-11ec-b2e2-b0104192812f</th>
-                        <td>Akli Mohand Oulhadj</td>
-                        <td>2016/2017</td>
-                      </tr>
-                   
-                      <tr>
-                        <th>dda0bf69-011d-11ec-b2e2-b0104192812f</th>
-                        <td>Akli Mohand Oulhadj</td>
-                        <td>2016/2017</td>
-                      </tr>
-
-                      <tr>
-                        <th>dda0bf69-011d-11ec-b2e2-b0104192812f</th>
-                        <td>Akli Mohand Oulhadj</td>
-                        <td>2016/2017</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                   -->
-
-
-            <!-- <h3 class="mt-2">
-                    <center>Years</center>
-                </h3>
-                <table class="table mt-5">
-                    <thead class="table-dark table-borderless">
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">courses</th>
-                            <th scope="col">teachers</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="width: 40%;">dda0bf69-011d-11ec-b2e2-b0104192812f</td>
-                            <td>1-Première année MI, Section 1</td>
-                            <td>2016/2017</td>
-                        </tr>
-
-                        <tr>
-                            <th>dda0bf69-011d-11ec-b2e2-b0104192812f</th>
-                            <td>Akli Mohand Oulhadj</td>
-                            <td>2016/2017</td>
-                        </tr>
-
-                        <tr>
-                            <th>dda0bf69-011d-11ec-b2e2-b0104192812f</th>
-                            <td>Akli Mohand Oulhadj</td>
-                            <td>2016/2017</td>
-                        </tr>
-                    </tbody>
-                </table> -->
-
-            <!-- 
-                <h3 class="mt-2">
-                    <center>Groups of Year Name</center>
-                </h3>
-                <table class="table mt-5">
-                    <thead class="table-dark table-borderless">
-                        <tr>
-                            <th scope="col">Group name</th>
-                            <th scope="col">courses</th>
-                            <th scope="col">td</th>
-                            <th scope="col">tp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1-Première année MI, Section 1</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                        </tr>
-
-                        <tr>
-                            <td>Akli Mohand Oulhadj</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                        </tr>
-
-                        <tr>
-                            <td>Akli Mohand Oulhadj</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                        </tr>
-                    </tbody>
-                </table> -->
-
-
-
-
-            <!-- <h3 class="mt-2">
-                    <center>Courses of Group</center>
-                </h3>
-                <table class="table mt-5">
-                    <thead class="table-dark table-borderless">
-                        <tr>
-                            <th scope="col" style="width: 10%;">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">teacher</th>
-                            <th scope="col">related courses</th>
-                            <th scope="col">type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1-Première année MI, Section 1</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                        </tr>
-
-                        <tr>
-                            <td>1</td>
-                            <td>1-Première année MI, Section 1</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                        </tr>
-
-                        <tr>
-                            <td>1</td>
-                            <td>1-Première année MI, Section 1</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                        </tr>
-                    </tbody>
-                </table> -->
-
-
-
-            <!-- <h3 class="mt-2">
-                <center>Teacher</center>
-            </h3>
-            <table class="table mt-5">
-                <thead class="table-dark table-borderless">
-                    <tr>
-                        <th scope="col" style="width: 10%;">ID</th>
-                        <th scope="col">id</th>
-                        <th scope="col">name</th>
-                        <th scope="col">last name</th>
-                        <th scope="col">rank</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>1-Première année MI, Section 1</td>
-                        <td>2016/2017</td>
-                        <td>2016/2017</td>
-                        <td>2016/2017</td>
-                    </tr>
-
-                    <tr>
-                        <td>1</td>
-                        <td>1-Première année MI, Section 1</td>
-                        <td>2016/2017</td>
-                        <td>2016/2017</td>
-                        <td>2016/2017</td>
-                    </tr>
-
-                    <tr>
-                        <td>1</td>
-                        <td>1-Première année MI, Section 1</td>
-                        <td>2016/2017</td>
-                        <td>2016/2017</td>
-                        <td>2016/2017</td>
-                    </tr>
-                </tbody>
-            </table> -->
-            <!-- 
-                <h3 class="mt-2">
-                    <center>Class rooms</center>
-                </h3>
-                <table class="table mt-5">
-                    <thead class="table-dark table-borderless">
-                        <tr>
-                            <th scope="col" style="width: 10%;">ID</th>
-                            <th scope="col">id</th>
-                            <th scope="col">name</th>
-                            <th scope="col">capacity name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1-Première année MI, Section 1</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                        </tr>
-
-                        <tr>
-                            <td>1</td>
-                            <td>1-Première année MI, Section 1</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                        </tr>
-
-                        <tr>
-                            <td>1</td>
-                            <td>1-Première année MI, Section 1</td>
-                            <td>2016/2017</td>
-                            <td>2016/2017</td>
-                        </tr>
-                    </tbody>
-                </table> -->
-
-
-            <!-- </div> -->
-
-
-        </div>
+              </div>
+              
+              <div class="carousel-item" data-bs-interval="2000">
+                <div class="mb-5">
+                    <img src="assets/images/screenshot_1.png" class="d-block w-50 m-auto d-block mb-5" alt="...">
+                  </div>
+                  <br><br><br><br>
+              <div class="carousel-caption d-none d-md-block mt-5">
+                <h5>First slide label</h5>
+                <p>Some representative placeholder content for the first slide.</p>
+              </div>
+              </div>
+   
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
     </section>
+   
     <footer>
 
     </footer>

@@ -7,6 +7,37 @@ function build_available_teachers(techers_av) {
     <div id="schedule-year" class="mb-3"></div>
 
     <div id="schedule-title"></div>
+    <div class="container d-flex justify-content-around">
+    <div>
+    Course type
+    <select id='course-type' class="form-select mb-3" aria-label="Default select example" style='width:200px;'>
+    <option selected>all</option>
+    <option value="1">COURS</option>
+    <option value="2">TD</option>
+    <option value="3">TP</option>
+</select>
+</div>
+<div>
+teacher type
+<select id='teacher-type' class="form-select mb-3" aria-label="Default select example" style='width:200px;'>
+<option selected>all</option>
+<option value="1">M</option>
+<option value="1">Mr</option>
+<option value="3">Mme</option>
+<option value="2">Melle</option>
+</select>
+</div>
+<div>
+teacher rank
+<select id='teacher-rank' class="form-select mb-3" aria-label="Default select example" style='width:200px;'>
+<option selected>all</option>
+<option value="1">MAA</option>
+<option value="2">Vac</option>
+<option value="3">MAB</option>
+<option value="3">Professeur</option>
+</select>
+</div>
+</div>
     <table border="1" id="schedule">
     </table>
     <div class="d-flex justify-content-end meta-data-table" style="width: 70%;">
@@ -24,9 +55,48 @@ function build_available_teachers(techers_av) {
         </div>
     </div>`)
 
+    var course_type = $('#course-type')
+    selected_course_type = 'all';
+
+    var teacher_type = $('#teacher-type')
+    selected_teacher_type = 'all';
+
+
+    var teacher_rank = $('#teacher-rank')
+    selected_teacher_rank = 'all';
+
+    course_type.change(function () {
+        selected_course_type = course_type.find(":selected").text();
+        _build(techers_av, selected_course_type, selected_teacher_type, selected_teacher_rank);
+    });
+
+
+    teacher_type.change(function () {
+        selected_teacher_type = teacher_type.find(":selected").text();
+        _build(techers_av, selected_course_type, selected_teacher_type, selected_teacher_rank);
+    });
+
+
+    teacher_rank.change(function () {
+        selected_teacher_rank = teacher_rank.find(":selected").text();
+        _build(techers_av, selected_course_type, selected_teacher_type, selected_teacher_rank);
+    });
+
+
+    _build(techers_av, selected_course_type, selected_teacher_type, selected_teacher_rank);
+
+
+
+}
+
+function _build(techers_av) {
     let table = $('#schedule');
     let schedule_year = $("#schedule-year")
     let schedule_group = $("#schedule-title")
+
+    table.html("")
+    schedule_year.html("")
+    schedule_group.html("")
 
     schedule_year.append(`Not yet`);
     schedule_group.append(`Available teachers`);
@@ -44,20 +114,17 @@ function build_available_teachers(techers_av) {
             } else if (column == 0) {
                 column_raw += getTerm(techers_av.terms[row - 1]);
             } else {
-                column_raw += get_lesson_cell(techers_av,column, row);
+                column_raw += get_lesson_cell(techers_av, selected_course_type, selected_teacher_type, selected_teacher_rank, column, row);
             }
         }
         row_raw = getRow(column_raw, row);
         table.append(row_raw);
     }
 
-
 }
 
 
-
-
-function get_lesson_cell(techers_av,day_index, term_index) {
+function get_lesson_cell(techers_av, selected_course_type, selected_teacher_type, selected_teacher_rank, day_index, term_index) {
     var data = ""
 
     teacher_data = []
@@ -65,6 +132,13 @@ function get_lesson_cell(techers_av,day_index, term_index) {
 
     var count = 0;
     var count_a = 0;
+
+
+    var course_page = "courses.html";
+    var teacher_page = "teachers.html";
+    var class_room_page = "class_room.html";
+    var group_page = 'groups.html';
+    document_key = findGetParameter('document');
 
     techers_av.lessons.forEach(element => {
         if (element.day_index == day_index && element.term_index == term_index) {
@@ -104,12 +178,46 @@ function get_lesson_cell(techers_av,day_index, term_index) {
 
     inner_data = `<div >`;
 
-
     teacher_data.forEach(element => {
+        // var group_url = [group_page, [`document=${document_key}`, `id=${element.group.id}`].join("&")].join("?")
+        var course_url = [course_page, [`document=${document_key}`, `id=${element.course.id}`].join("&")].join("?")
+        var class_room_url = [class_room_page, [`document=${document_key}`, `id=${element.class_room.id}`].join("&")].join("?")
+        var teacher_url = [teacher_page, [`document=${document_key}`, `id=${element.teacher.id}`].join("&")].join("?")
+
+        if (selected_course_type.includes("all")) {
+
+        } else if (element.course.course_type.toLocaleUpperCase().includes(selected_course_type)) {
+        }
+        else {
+            console.log("here 1");
+            return
+        }
+
+
+        if(selected_teacher_type.includes("all")){}
+        else if (selected_teacher_type.length == 1){
+            if(element.teacher.title.length > 1){
+                return
+            }
+        }
+        else if (element.teacher.title.includes(selected_teacher_type)){}
+        else{
+            return
+        }
+
+
+
+        if(selected_teacher_rank.includes("all")){}
+        else if (element.teacher.edu_rank.includes(selected_teacher_rank)){}
+        else{
+            return
+        }
+
         inner_data += `<div class=' course-item-data  ${element.course.course_type.toLocaleLowerCase()}'>`;
-        inner_data += `<a class="teacher-data" href='#'>`;
+        inner_data += `<a class="teacher-data" href='${teacher_url}'>`;
         inner_data += `${element.teacher.name} ${element.teacher.last_name}<br>`;
-        inner_data += `<a  href="#" style="font-size:0.75rem;">${element.course.course_type.toLocaleUpperCase()}</a><br>`
+        inner_data += `<a style="font-size:0.75rem;">${element.course.course_type.toLocaleUpperCase()}</a><br>`
+        inner_data += `<a href="${class_room_url}" style="font-size:0.75rem;">${element.class_room.name}</a><br>`
 
         inner_data += `</a>`;
         inner_data += `</div>`;

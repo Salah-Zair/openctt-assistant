@@ -94,6 +94,11 @@ function build_teacher_schedule(teacher_data) {
 function get_lesson_cell(teacher_data,day_index, term_index) {
     var data = ""
 
+    var course_page = "courses.html";
+    var teacher_page = "teachers.html";
+    var class_room_page = "class_room.html";
+    var group_page = 'groups.html';
+    document_key = findGetParameter('document')
 
     teacher_data.lessons.forEach(element => {
         if (element.day_index == day_index && element.term_index == term_index) {
@@ -104,23 +109,28 @@ function get_lesson_cell(teacher_data,day_index, term_index) {
             class_room = get_realted_item_by_id(teacher_data.class_rooms, element.classroom_id);
 
 
+            var group_url = [group_page, [`document=${document_key}`, `id=${group.id}`].join("&")].join("?")
+            var course_url = [course_page, [`document=${document_key}`, `id=${course.id}`].join("&")].join("?")
+            var class_room_url = [class_room_page, [`document=${document_key}`, `id=${class_room.id}`].join("&")].join("?")
+
+
             inner_data = `<div class='course-item-data ${course.course_type.toLocaleLowerCase()}'>`;
 
 
             inner_data += `<div class='course-data'>`;
-            inner_data += `<a href='#'>`;
+            inner_data += `<a href='${course_url}'>`;
             inner_data += `${course.short_name}`;
             inner_data += `</a>`;
             inner_data += `</div>`;
 
             inner_data += `<div class='class-room-data'>`;
-            inner_data += `<a href='#'>`;
+            inner_data += `<a href='${class_room_url}'>`;
             inner_data += `${class_room.name}`;
             inner_data += `</a>`;
             inner_data += `</div>`;
 
             inner_data += `<div class='class-room-data'>`;
-            inner_data += `<a href='#'>`;
+            inner_data += `<a href='${group_url}'>`;
             inner_data += `${group.name}`;
             inner_data += `</a>`;
             inner_data += `</div>`;
