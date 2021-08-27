@@ -65,10 +65,10 @@ function build_class_room_schedule(class_room_data) {
     </div>`)
 
     let table = $('#schedule');
-    let schedule_year = $("#schedule-year")
+    // let schedule_year = $("#schedule-year")
     let schedule_group = $("#schedule-title")
 
-    schedule_year.append(`Not yet`);
+    // schedule_year.append(`Not yet`);
     schedule_group.append(`Class Room ${class_room_data.class_room.name}`);
 
     row_length = class_room_data.terms.length + 1;

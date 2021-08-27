@@ -10,13 +10,40 @@
     <title>Document</title>
 </head>
 <style>
-    body{
+    body {
         background-color: white;
     }
+
+    section {
+        height: 85vh;
+    }
+
+    footer {
+        font-size: 12px;
+        color: white;
+        background-color: black;
+        padding: 10px 0;
+    }
+
+    .link-area{
+
+    }
+
+    .link-area svg {
+        margin: 0 5px;
+        background-color: white;
+        border-radius: 50%;
+        padding: 1px;
+    }
+
+    .link-area svg:hover {
+        background-color: skyblue;
+    }
 </style>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Openctt assistant</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -38,48 +65,70 @@
         </nav>
     </header>
     <section>
-        <div id="carouselExampleDark" class="carousel carousel-dark slide " data-bs-ride="carousel" >
+        <div id="carouselExampleDark" class="carousel carousel-dark slide " data-bs-ride="carousel">
             <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
             </div>
             <div class="carousel-inner">
-              <div class="carousel-item active" data-bs-interval="10000">
-                  <div class="mb-5">
-                      <img src="assets/images/screenshot_2.png" class="d-block w-50 m-auto d-block mb-5" alt="...">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <div class="mb-5">
+                        <img src="assets/images/screenshot_2.png" class="d-block w-50 m-auto d-block mb-5" alt="...">
                     </div>
                     <br><br><br><br>
                     <div class="carousel-caption d-none d-md-block mt-5">
-                  <h5>First slide label</h5>
-                  <p>Some representative placeholder content for the first slide.</p>
+                        <h5>First slide label</h5>
+                        <p>Some representative placeholder content for the first slide.</p>
+                    </div>
                 </div>
-              </div>
-              
-              <div class="carousel-item" data-bs-interval="2000">
-                <div class="mb-5">
-                    <img src="assets/images/screenshot_1.png" class="d-block w-50 m-auto d-block mb-5" alt="...">
-                  </div>
-                  <br><br><br><br>
-              <div class="carousel-caption d-none d-md-block mt-5">
-                <h5>First slide label</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-              </div>
-              </div>
-   
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-    </section>
-   
-    <footer>
 
+                <div class="carousel-item" data-bs-interval="2000">
+                    <div class="mb-5">
+                        <img src="assets/images/screenshot_1.png" class="d-block w-50 m-auto d-block mb-5" alt="...">
+                    </div>
+                    <br><br><br><br>
+                    <div class="carousel-caption d-none d-md-block mt-5">
+                        <h5>First slide label</h5>
+                        <a class="btn btn-primary" href="pages/document.html">Start now</a>
+                    </div>
+                </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <footer class="">
+        <div class="d-flex justify-content-around align-items-center">
+            <div class="right-area">
+                All right reserved
+            </div>
+
+            <div class="title-arae">
+                Open course timetable assistant
+            </div>
+
+            <div class="link-area">
+                follw us on github 
+                <a href="https://github.com/Salah-Zair/openctt-assistant">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
     </footer>
     <script src="js/extrnal_js/bootstrap.bundle.min.js"></script>
     <!-- JQUERY -->
@@ -98,22 +147,22 @@
 
             var document_link = findGetParameter("document");
             var item_id = findGetParameter("id");
-            
+
             if (document_link != null) {
-                if(item_id != null){
-                    get_courses_by_id(document_link,item_id)
-                }else{
+                if (item_id != null) {
+                    get_courses_by_id(document_link, item_id)
+                } else {
                     get_all_courses(document_link)
                     // get_all_courses(document_link)
-                    
+
                 }
-                
-                
+
+
             } else {
                 get_all_documents();
             }
         });
-            </script>
-            </body>
+    </script>
+</body>
 
 </html>

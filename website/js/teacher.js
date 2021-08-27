@@ -12,7 +12,7 @@ function build_teachers_table(teacher_data){
         <tr>
             <th scope="col" style="width: 10%;">ID</th>
             <th scope="col">name</th>
-            <th scope="col">last name</th>        // console.log(course_paramters);
+            <th scope="col">last name</th>      
 
         </tr>
     </thead>
@@ -62,10 +62,10 @@ function build_teacher_schedule(teacher_data) {
     </div>`)
 
     let table = $('#schedule');
-    let schedule_year = $("#schedule-year")
+    // let schedule_year = $("#schedule-year")
     let schedule_group = $("#schedule-title")
 
-    schedule_year.append(`Not yet`);
+    // schedule_year.append(`Not yet`);
     schedule_group.append(`Teacher ${teacher_data.teacher.name} ${teacher_data.teacher.last_name}`);
 
     row_length = teacher_data.terms.length + 1;

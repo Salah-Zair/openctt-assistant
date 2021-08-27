@@ -35,14 +35,14 @@ function build_free_class_rooms_schedule(free_class_room_data) {
 
 function _build(free_class_room_data, selected_item) {
     let table = $('#schedule');
-    let schedule_year = $("#schedule-year")
+    // let schedule_year = $("#schedule-year")
     let schedule_group = $("#schedule-title")
 
     table.html("");
-    schedule_year.html("");
+    // schedule_year.html("");
     schedule_group.html("");
 
-    schedule_year.append(`Not yet`);
+    // schedule_year.append(`Not yet`);
     schedule_group.append(`Free ClassRooms`);
 
     row_length = free_class_room_data.terms.length + 1;

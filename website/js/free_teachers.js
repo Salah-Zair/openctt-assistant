@@ -91,14 +91,14 @@ teacher rank
 
 function _build(techers_av) {
     let table = $('#schedule');
-    let schedule_year = $("#schedule-year")
+    // let schedule_year = $("#schedule-year")
     let schedule_group = $("#schedule-title")
 
     table.html("")
-    schedule_year.html("")
+    // schedule_year.html("")
     schedule_group.html("")
 
-    schedule_year.append(`Not yet`);
+    // schedule_year.append(`Not yet`);
     schedule_group.append(`Available teachers`);
 
     row_length = techers_av.terms.length + 1;

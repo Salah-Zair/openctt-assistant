@@ -72,10 +72,10 @@ function build_course_schedule(data) {
     </div>`)
 
     let table = $('#schedule');
-    let schedule_year = $("#schedule-year")
+    // let schedule_year = $("#schedule-year")
     let schedule_group = $("#schedule-title")
 
-    schedule_year.append(`Not yet`);
+    // schedule_year.append(`Not yet`);
     schedule_group.append(`Course ${data.course.name}`);
 
     row_length = data.terms.length + 1;
